@@ -1,0 +1,9 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: "New cluster"
+      debug:
+        msg: "This Preinstall Cluster"
+      tags: preinstall

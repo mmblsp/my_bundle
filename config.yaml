@@ -1,0 +1,52 @@
+---
+- type: cluster
+  name: Zookeeper cluster
+  description: Zookeeper cluster software
+  version: 0.0.1
+  edition: community
+  license: EULA.txt
+  adcm_min_version: 2022.10.04.17
+
+  upgrade:
+    - name: 0.0.2 community
+      versions:
+        min: "0.0.1"
+        max_strict: "1.0.0"
+      from_edition: ["community"]
+      states:
+        available: any
+        on_success: upgrade
+
+  config:
+    - name: __main_info
+      type: file
+      default: "info/cluster.html"
+
+    - name: cluster_name
+      type: string
+      default: "Teach cluster"
+
+  actions:
+    install:
+      display_name: "Install"
+      type: task
+      allow_to_terminate: true
+      scripts:
+        - name: preinstall
+          display_name: "Preinstall"
+          script_type: ansible
+          script: ansible/cluster_preinstall.yaml
+          params:
+            ansible_tags: preinstall, service_dependency_check
+        - name: zookeeper
+          display_name: "Zookeeper"
+          script_type: ansible
+          script: ansible/zookeeper.yml
+          params:
+            ansible_tags: install, configure, start
+      states:
+        available:
+          - created
+          - faulty_installed
+        on_success: created
+        on_fail: faulty_installed
