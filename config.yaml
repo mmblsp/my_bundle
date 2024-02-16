@@ -32,6 +32,10 @@
       type: task
       allow_to_terminate: true
       scripts:
+        # TODO: тут можно сократить количество задач без потери смысла
+        # применив практики из Ansible
+        # The pre_tasks keyword just lets you list tasks to run before the roles are called.
+        # https://docs.ansible.com/ansible/latest/playbook_guide/guide_rolling_upgrade.html
         - name: preinstall
           display_name: "Preinstall"
           script_type: ansible
