@@ -1,0 +1,12 @@
+--extra-index-url https://ci.arenadata.io/artifactory/api/pypi/python-packages/simple
+adcm_client
+adcm_pytest_plugin
+adcm_pytest_tools < 5.0.0
+allure-pytest
+coreapi
+docker
+pytest
+pytest-instafail
+pytest-lazy-fixture
+pytest-timeout
+pytest-xdist

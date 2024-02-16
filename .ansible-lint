@@ -1,0 +1,33 @@
+exclude_paths:
+  # gitmodules
+  - ./adcm_service_zookeeper/
+  - ./ansible/roles/diamond/
+  - ./ansible/roles/jmxtrans/
+  - ./ansible/roles/service/
+  - ./ansible/roles/statuschecker/
+  # symlinks
+  - ./ansible/playbooks/cluster/filter_plugins
+  - ./ansible/playbooks/cluster/roles
+  - ./ansible/playbooks/hdfs/filter_plugins
+  - ./ansible/playbooks/hdfs/roles
+  - ./ansible/playbooks/yarn/filter_plugins
+  - ./ansible/playbooks/yarn/roles
+  - ./ansible/playbooks/zeppelin/filter_plugins
+  - ./ansible/playbooks/zeppelin/roles
+skip_list:
+  # Lines should be no longer than 160 chars
+  - '204'
+  # File permissions not mentioned
+  - '208'
+  # Commands should not change things if nothing needs doing
+  - '301'
+  # Use Curl instead uri for SPNEGO support
+  - '303'
+  # Use shell only when shell functionality is required
+  - '305'
+  # All tasks should be named
+  - '502'
+  # Tasks that run when changed should likely be handlers
+  - '503'
+  # Don't compare to empty string
+  - '602'
