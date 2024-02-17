@@ -36,6 +36,7 @@
         # применив практики из Ansible
         # The pre_tasks keyword just lets you list tasks to run before the roles are called.
         # https://docs.ansible.com/ansible/latest/playbook_guide/guide_rolling_upgrade.html
+        # pre_tasks выполнить сбор необходимых фактов из ADCM и задействованных серверов
         - name: preinstall
           display_name: "Preinstall"
           script_type: ansible
@@ -48,6 +49,11 @@
           script: ansible/zookeeper.yml
           params:
             ansible_tags: install, configure, start
+        # TODO: Добавить обработку (сохранене данных adcm_config),
+        # выполнить проверку логов (adcm_check)
+        # которые произошли в результате инсталляции zookeeeper
+        # выделение в отдельный стек задач в виде post_tasks позволит структурироать
+        # код, а так же поддерживает принцип единственной ответственности
       states:
         available:
           - created
