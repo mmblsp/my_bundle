@@ -8,11 +8,11 @@
       }}
 
 - name: "prepare data"
+  # как бы так сделать, чтоб ключи забирать из adcm а в роль передавать заполняемый словарь
   set_fact:
     save_to_adcm_prepared_data: >
       {{ save_to_adcm_prepared_data | combine({
-        "zk_0": zookeeper_prepared_data,
-        "zk_1": zk_1,
-        "zk_2": zk_2
+        "connect": zookeeper_connect_data,
+        "data_dirs": zookeeper_data_dirs,
         }, recursive=True)
       }}

@@ -1,0 +1,16 @@
+---
+- set_fact:
+    msg_data_saved: |-
+      {%- for item in save_to_adcm_prepared_data | dict2items %}
+      {{ item.key }} {{ ('password' in item.key) | ternary('*'*8, item.value ) }}
+      {%- endfor %}
+
+- debug:
+    msg: "{{ msg_data_saved }}"
+
+- name: Save the cluster configuration in ADCM
+  adcm_config:
+    type: "{{save_to_adcm_type}}"
+    service_name: "{{save_to_adcm_service_name | d('') }}"
+    component_name: "{{save_to_adcm_component_name | d('') }}"
+    parameters: "{{ save_to_adcm_prepared_data | dict2items }}"

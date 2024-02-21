@@ -26,21 +26,6 @@
       type: string
       default: "Teach cluster"
 
-    - name: zk_0
-      type: string
-      display_name: "zk 0"
-      required: False
-
-    - name: zk_1
-      type: string
-      display_name: "zk 1"
-      required: False
-
-    - name: zk_2
-      type: string
-      display_name: "zk 2"
-      required: False
-
   actions:
     install:
       display_name: "Install"
@@ -57,3 +42,54 @@
           - faulty_installed
         on_success: created
         on_fail: faulty_installed
+
+- type: service
+  name: zookeeper
+  display_name: Zookeeper
+  version: 3.9.1
+
+  export:
+    - Main
+
+  config:
+    - name: Main
+      type: group
+      subs:
+        - name: connect
+          type: string
+          read_only: any
+          required: no
+          description: >
+            Zookeeper connection string that is used by other services or clusters.
+            It is generated automatically.
+
+        - name: data_dirs
+          display_name: dataDir
+          type: string
+          default: "/var/lib/zookeeper"
+          description: >
+            The location where Zookeeper stores the in-memory database snapshots and,
+            unless specified otherwise, the transaction log of updates to the database.
+            Specified as the dataDir parameter in the zoo.cfg configuration file.
+  actions:
+    Start:
+      type: job
+      script_type: ansible
+      script: ./ansible/zookeeper_server.yml
+      # TDDO: прогон конфигурации сервера
+      states:
+        available:
+          - installed
+
+  # components:
+  #   SERVER:
+  #     display_name: Zookeeper Server
+  #     constraint: [odd]
+  #     actions:
+  #       Start:
+  #         type: job
+  #         script_type: ansible
+  #         script: ./ansible/zookeeper_server.yml
+  #         states:
+  #           available:
+  #             - installed

@@ -1,0 +1,29 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: "New zookeeper"
+      debug:
+        msg: "mockup zookeeper service"
+  # pre_tasks:
+  # Проверки: порты на серверах доступны для назначения,
+  # служба в процессах
+
+  roles:
+  #   - role: Настройка времени
+  #   - role: Установка OpenJava
+  #   - role: Настройка безопасности SELinux
+  #   - role: Настройка брандмауэра.
+  #   - role: zookeeper (установка необходимых пакетов и конфигурация)
+    - role: zookeeper
+
+  post_tasks:
+    - import_tasks: lib/tasks_save_to_adcm.yaml
+  vars:
+    save_to_adcm_prepared_data: {}
+    # 'cluster', 'service', 'component', 'host', 'hostprovider'
+    save_to_adcm_type: "service"
+    save_to_adcm_service_name: "zookeeper"
+    save_to_adcm_component_name: ""
+    save_to_adcm_host_id: 0

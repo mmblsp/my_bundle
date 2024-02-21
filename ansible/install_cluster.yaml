@@ -7,29 +7,17 @@
       debug:
         msg: "This Preinstall Cluster"
 
-  roles:
-    - role: zookeeper
-      zk_1: one
-      zk_2: two
+  tasks:
+    - debug:
+        msg: "this tasks or roles for cluster"
 
   post_tasks:
-      - name: "Print info"
-        debug:
-            msg: |
-              data_json >>  {{save_to_adcm_prepared_data}}
-              type: >> {{save_to_adcm_type}}
-              service_name >> {{save_to_adcm_service_name}}
-              component_name >> {{save_to_adcm_component_name}}
-              host_id >> {{save_to_adcm_host_id}}
+    - import_tasks: lib/tasks_save_to_adcm.yaml
 
-      - name: Save the cluster configuration in ADCM
-        adcm_config:
-          type: cluster
-          parameters: "{{ save_to_adcm_prepared_data | dict2items }}"
   vars:
     save_to_adcm_prepared_data: {}
     # 'cluster', 'service', 'component', 'host', 'hostprovider'
-    save_to_adcm_type: ""
+    save_to_adcm_type: "cluster"
     save_to_adcm_service_name: ""
     save_to_adcm_component_name: ""
     save_to_adcm_host_id: 0
