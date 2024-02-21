@@ -1,0 +1,18 @@
+---
+# tasks file for save_to_adcm
+- name: Check Params
+  debug:
+    msg: |
+      {{
+        zookeeper_prepared_data
+      }}
+
+- name: "prepare data"
+  set_fact:
+    save_to_adcm_prepared_data: >
+      {{ save_to_adcm_prepared_data | combine({
+        "zk_0": zookeeper_prepared_data,
+        "zk_1": zk_1,
+        "zk_2": zk_2
+        }, recursive=True)
+      }}

@@ -1,0 +1,5 @@
+---
+# defaults file for save_to_adcm
+zookeeper_prepared_data: "zookeeperzookeeperzookeeperzookeeperzookeeper"
+zk_1: one
+zk_2: two

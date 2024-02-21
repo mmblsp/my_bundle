@@ -1,6 +1,6 @@
 --extra-index-url https://ci.arenadata.io/artifactory/api/pypi/python-packages/simple
 adcm_client
-adcm_pytest_plugin
+adcm_pytest_plugin < 6.0.0
 adcm_pytest_tools < 5.0.0
 allure-pytest
 coreapi
@@ -10,3 +10,5 @@ pytest-instafail
 pytest-lazy-fixture
 pytest-timeout
 pytest-xdist
+pytest_allure_spec_coverage>=0.0.1
+xmltodict~=0.12
