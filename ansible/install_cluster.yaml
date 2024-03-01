@@ -1,20 +1,16 @@
 ---
-- name: Check cluster
-  hosts: 127.0.0.1
-  connection: local
-  gather_facts: false
-  tasks:
-    - fail:
-        msg: "there are no hosts in the cluster"
-      when: groups['CLUSTER'] | length == 0
 
-- name: Run repos
+- import_playbook: lib/check_cluster_hosts.yaml
+  vars:
+    group_name: CLUSTER
+    type_name: Cluster
+
+- name: Cluster install
   hosts: CLUSTER
   gather_facts: false
   pre_tasks:
-    - name: "New cluster pre_tasks"
-      debug:
-        msg: "This Preinstall Cluster"
+    - debug:
+        msg: "PRE-TASKS install cluster"
 
   tasks:
     - set_fact:

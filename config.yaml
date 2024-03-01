@@ -75,11 +75,26 @@
     Start:
       type: job
       script_type: ansible
-      script: ./ansible/zookeeper_server.yml
+      script: ansible/zookeeper_server.yml
       # TDDO: прогон конфигурации сервера
       states:
         available:
           - installed
+    install:
+      display_name: "Install"
+      type: task
+      allow_to_terminate: true
+      scripts:
+        - name: Install cluster
+          display_name: "Install cluster"
+          script_type: ansible
+          script: ansible/zookeeper_server.yml
+      states:
+        available:
+          - created
+          - faulty_installed
+        on_success: created
+        on_fail: faulty_installed
 
   # components:
   #   SERVER:

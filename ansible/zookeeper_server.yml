@@ -1,21 +1,21 @@
 ---
-- hosts: 127.0.0.1
-  connection: local
+
+- import_playbook: lib/check_cluster_hosts.yaml
+  vars:
+    group_name: CLUSTER
+    type_name: Cluster
+
+- name: Install zookeeper
+  hosts: CLUSTER
   gather_facts: false
-  tasks:
-    - name: "New zookeeper"
-      debug:
-        msg: "mockup zookeeper service"
-  # pre_tasks:
-  # Проверки: порты на серверах доступны для назначения,
-  # служба в процессах
+  pre_tasks:
+    - debug:
+        msg:
+          - "PRE-TASKS zookeeper"
+          - "{{ vars }}"
 
   roles:
-  #   - role: Настройка времени
-  #   - role: Установка OpenJava
-  #   - role: Настройка безопасности SELinux
-  #   - role: Настройка брандмауэра.
-  #   - role: zookeeper (установка необходимых пакетов и конфигурация)
+    - role: java
     - role: zookeeper
 
   post_tasks:
