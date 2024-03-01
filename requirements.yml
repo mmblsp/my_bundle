@@ -1,0 +1,8 @@
+# ansible-galaxy install -r requirements.yml --roles-path ./ansible/roles
+- name: java
+  src: https://github.com/mmblsp/ansible-role-java-adcm.git
+  # version: 0.0.1
+
+- name: zookeeper
+  src: https://github.com/mmblsp/ansible-role-zookeeper-adcm.git
+  # version: 0.0.1

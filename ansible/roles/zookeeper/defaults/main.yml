@@ -1,5 +1,0 @@
----
-# defaults file for save_to_adcm
-# https://zookeeper.apache.org/
-zookeeper_data_dirs: ""
-zookeeper_connect_data: ""

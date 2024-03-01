@@ -151,3 +151,8 @@ tests/tests_token
 # Integrated Development Environment
 .idea
 .vscode
+
+# Roles are separate repositories
+# when assembling the bundle, we use ansible-galaxy
+# ansible-galaxy install -r requirements.yml --roles-path ./ansible/roles
+roles
