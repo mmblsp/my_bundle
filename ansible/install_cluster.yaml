@@ -1,6 +1,15 @@
 ---
-- hosts: 127.0.0.1
+- name: Check cluster
+  hosts: 127.0.0.1
   connection: local
+  gather_facts: false
+  tasks:
+    - fail:
+        msg: "there are no hosts in the cluster"
+      when: groups['CLUSTER'] | length == 0
+
+- name: Run repos
+  hosts: CLUSTER
   gather_facts: false
   pre_tasks:
     - name: "New cluster pre_tasks"
@@ -8,8 +17,11 @@
         msg: "This Preinstall Cluster"
 
   tasks:
-    - debug:
-        msg: "this tasks or roles for cluster"
+    - set_fact:
+        save_to_adcm_prepared_data: >
+          {{
+            cluster.config | combine({'cluster_name': 'YOUHOOO'},recursive=True)
+          }}
 
   post_tasks:
     - import_tasks: lib/tasks_save_to_adcm.yaml
